@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de PDF em Texto</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" href="logo2.svg" type="image/svg" />
+  </head>
+
+  <!-- CORPO DO SITE -->
+
+  <body>
+    <div class="container">
+      <h1>Conversor de PDF em Texto 📁</h1>
+    </div>
+
+    <!-- Texto -->
+
+    <div class="primeiro_text">
+      <p>
+        Converta PDFs em textos editáveis de forma rápida e fácil, facilitando a
+        extração e reutilização de conteúdo sem perda de qualidade. <br />
+        Ideal para agilidade e praticidade no seu trabalho!
+      </p>
+    </div>
+
+    <!-- FORMULÁRIO DE ENVIO e ABRIRPDF-->
+    <form action="/" method="POST" enctype="multipart/form-data">
+      <div class="abrirpdf">
+        <label for="abrirpdf"
+          >Clique "AQUI" para escolher os arquivos PDF.</label
+        >
+        <input
+          type="file"
+          id="abrirpdf"
+          name="pdfs"
+          accept=".pdf"
+          class="subirarquivo"
+          multiple
+        />
+      </div>
+
+      <!--BOTÃO-->
+
+      <div class="button">
+        <button type="submit"><span>Iniciar</span></button>
+      </div>
+    </form>
+
+    <!-- RESULTADO EXIBIDO EM TABELA, UNICO JEITO QUE DEU -->
+    <div class="resultado">
+      {% if resultado %}
+      <h2>Palavras comuns encontradas:</h2>
+      <table>
+        <tr>
+          <th>Palavra</th>
+          <th>Arquivos</th>
+        </tr>
+        {% for palavra, arquivos in resultado.items() %}
+        <tr>
+          <td><b>{{ palavra }}</b></td>
+          <td>
+            <ul>
+              {% for arquivo in arquivos %}
+              <li><b>{{ arquivo }}</b></li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p>Nenhuma palavra comum encontrada entre os PDFs.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
